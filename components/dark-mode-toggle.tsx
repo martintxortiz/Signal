@@ -13,7 +13,11 @@ function DarkModeToggle() {
     setMounted(true)
   }, [])
 
-  const isDark = mounted ? resolvedTheme === "dark" : false
+  if (!mounted) {
+    return <span aria-hidden className="inline-block h-[16px] w-[32px]" />
+  }
+
+  const isDark = resolvedTheme === "dark"
 
   return (
     <Switch

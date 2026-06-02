@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
 
+import { cn } from "@/lib/utils"
+
 type SettingsPageProps = {
   title: string
   children?: ReactNode
@@ -42,7 +44,7 @@ function SettingsSection({ title, children }: SettingsSectionProps) {
 function SettingsItem({
   title,
   description,
-  control = "control",
+  control,
 }: SettingsItemProps) {
   return (
     <div
@@ -50,14 +52,20 @@ function SettingsItem({
       className="flex items-center justify-between rounded-[4px] bg-muted/70 p-2.5 px-3"
     >
       <div className="flex flex-col justify-center">
-        <span className="text-sm">{title}</span>
+        <span
+          className={cn("text-sm", !description && "text-muted-foreground")}
+        >
+          {title}
+        </span>
         {description ? (
           <span className="text-xs text-muted-foreground">{description}</span>
         ) : null}
       </div>
-      <div className="ml-4 flex shrink-0 items-center text-xs text-muted-foreground">
-        {control}
-      </div>
+      {control ? (
+        <div className="ml-4 flex shrink-0 items-center text-xs text-muted-foreground">
+          {control}
+        </div>
+      ) : null}
     </div>
   )
 }

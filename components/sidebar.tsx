@@ -4,23 +4,21 @@ import { useEffect, type ComponentProps } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  IconActivity,
+  IconAffiliate,
+  IconAffiliateFilled,
   IconLayoutGrid,
-  IconSettings2,
+  IconLayoutGridFilled,
+  IconSettings,
+  IconSettingsFilled,
   type TablerIcon,
 } from "@tabler/icons-react"
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { IconButton } from "@/components/icon-button"
 import {
   SETTINGS_DEFAULT_HREF,
   isSettingsRoute,
   rememberSettingsBackHref as storeSettingsBackHref,
 } from "@/lib/settings-navigation"
-import { cn } from "@/lib/utils"
 
 type LinkHref = ComponentProps<typeof Link>["href"]
 
@@ -28,26 +26,27 @@ type SidebarItem = {
   href: LinkHref
   label: string
   icon: TablerIcon
+  selectedIcon: TablerIcon
   activeStartsWith?: string
   rememberSettingsBackHref?: boolean
-}
-
-type SidebarButtonProps = SidebarItem & {
-  isActive?: boolean
-  className?: string
+  indicator?: "alert" | "warning"
 }
 
 // Keep sidebar routes as data so adding items does not change rendering logic.
 const primarySidebarItems = [
   {
-    href: "/dashboard",
-    label: "Dashboard",
+    href: "/dashboard/d",
+    label: "Dashboards",
     icon: IconLayoutGrid,
+    selectedIcon: IconLayoutGridFilled,
+    activeStartsWith: "/dashboard/d",
   },
   {
     href: "/dashboard/systems",
     label: "Systems",
-    icon: IconActivity,
+    icon: IconAffiliate,
+    selectedIcon: IconAffiliateFilled,
+    indicator: "warning",
   },
 ] satisfies readonly SidebarItem[]
 
@@ -55,7 +54,8 @@ const secondarySidebarItems = [
   {
     href: SETTINGS_DEFAULT_HREF,
     label: "Settings",
-    icon: IconSettings2,
+    icon: IconSettings,
+    selectedIcon: IconSettingsFilled,
     activeStartsWith: "/dashboard/settings",
     rememberSettingsBackHref: true,
   },
@@ -69,38 +69,22 @@ function isItemActive(pathname: string, item: SidebarItem) {
   return typeof item.href === "string" && pathname === item.href
 }
 
-// One component owns link semantics, icon rendering, and tooltip behavior.
-function SidebarButton({
-  href,
-  label,
-  icon: Icon,
-  isActive,
-  className,
-  rememberSettingsBackHref,
-}: SidebarButtonProps) {
+function renderSidebarItem(item: SidebarItem, isActive: boolean) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          href={href}
-          aria-label={label}
-          onNavigate={
-            rememberSettingsBackHref ? () => storeSettingsBackHref() : undefined
-          }
-          className={cn(
-            "inline-flex size-6 shrink-0 items-center justify-center rounded-[4px] text-muted-foreground/70 hover:bg-muted hover:text-foreground",
-            isActive && "bg-muted text-foreground",
-            className
-          )}
-        >
-          <Icon className="size-3.5" aria-hidden="true" />
-          <span className="sr-only">{label}</span>
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent side="right" align="center" sideOffset={6}>
-        {label}
-      </TooltipContent>
-    </Tooltip>
+    <IconButton
+      key={item.label}
+      icon={item.icon}
+      selectedIcon={item.selectedIcon}
+      label={item.label}
+      href={item.href}
+      isActive={isActive}
+      indicator={item.indicator}
+      onNavigate={
+        item.rememberSettingsBackHref ? () => storeSettingsBackHref() : undefined
+      }
+      tooltipSide="right"
+      tooltipClassName="!ml-1"
+    />
   )
 }
 
@@ -118,25 +102,17 @@ function Sidebar() {
   return (
     <aside className="flex min-h-svh shrink-0 flex-col justify-between border-r border-sidebar-border bg-sidebar p-1 py-1.5">
       <nav aria-label="Primary" className="flex flex-1 flex-col gap-1">
-        {primarySidebarItems.map((item) => (
-          <SidebarButton
-            key={item.label}
-            isActive={isItemActive(pathname, item)}
-            {...item}
-          />
-        ))}
+        {primarySidebarItems.map((item) =>
+          renderSidebarItem(item, isItemActive(pathname, item))
+        )}
       </nav>
       <nav aria-label="Account" className="flex flex-col gap-1">
-        {secondarySidebarItems.map((item) => (
-          <SidebarButton
-            key={item.label}
-            isActive={isItemActive(pathname, item)}
-            {...item}
-          />
-        ))}
+        {secondarySidebarItems.map((item) =>
+          renderSidebarItem(item, isItemActive(pathname, item))
+        )}
       </nav>
     </aside>
   )
 }
 
-export { Sidebar, SidebarButton }
+export { Sidebar }
