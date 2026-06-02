@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: "",
         outline: "",
         secondary: "",
-        ghost: "text-muted-foreground hover:bg-muted rounded-xs",
+        ghost: "rounded-xs text-muted-foreground hover:bg-muted",
         destructive: "",
         link: "",
       },

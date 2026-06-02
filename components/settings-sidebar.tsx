@@ -16,17 +16,22 @@ import {
 
 import {
   SETTINGS_BACK_FALLBACK_HREF,
-  SETTINGS_BACK_HREF_STORAGE_KEY,
-  isSafeSettingsBackHref,
+  SETTINGS_DEFAULT_HREF,
+  getSettingsBackHref,
 } from "@/lib/settings-navigation"
 import { cn } from "@/lib/utils"
 
 type LinkHref = ComponentProps<typeof Link>["href"]
 
-type SettingsSidebarItem = {
-  href: LinkHref
+type SettingsSidebarButtonProps = {
+  href?: LinkHref
   label: string
   icon: TablerIcon
+  isActive?: boolean
+}
+
+type SettingsSidebarItem = Omit<SettingsSidebarButtonProps, "isActive"> & {
+  href: LinkHref
 }
 
 type SettingsSidebarSection = {
@@ -34,12 +39,8 @@ type SettingsSidebarSection = {
   items: readonly SettingsSidebarItem[]
 }
 
-type SettingsActionItem = SettingsSidebarItem & {
+type SettingsActionItem = Omit<SettingsSidebarButtonProps, "isActive"> & {
   id: "back" | "search"
-}
-
-type SettingsSidebarButtonProps = SettingsSidebarItem & {
-  isActive?: boolean
 }
 
 const settingsActionItems = [
@@ -51,7 +52,6 @@ const settingsActionItems = [
   },
   {
     id: "search",
-    href: "/",
     label: "Search",
     icon: IconSearch,
   },
@@ -63,7 +63,7 @@ const settingsSidebarSections = [
     label: "General settings",
     items: [
       {
-        href: "/dashboard/settings/general",
+        href: SETTINGS_DEFAULT_HREF,
         label: "General",
         icon: IconSettings2,
       },
@@ -100,48 +100,50 @@ function isItemActive(pathname: string, href: LinkHref) {
   return typeof href === "string" && pathname === href
 }
 
-function getStoredSettingsBackHref() {
-  if (typeof window === "undefined") {
-    return SETTINGS_BACK_FALLBACK_HREF
-  }
-
-  try {
-    const storedHref = window.sessionStorage.getItem(
-      SETTINGS_BACK_HREF_STORAGE_KEY
-    )
-
-    return isSafeSettingsBackHref(storedHref)
-      ? storedHref
-      : SETTINGS_BACK_FALLBACK_HREF
-  } catch {
-    return SETTINGS_BACK_FALLBACK_HREF
-  }
-}
-
 function SettingsSidebarButton({
   href,
   label,
   icon: Icon,
   isActive,
 }: SettingsSidebarButtonProps) {
+  const content = (
+    <>
+      <Icon className="size-3.5 shrink-0" aria-hidden="true" />
+      {label}
+    </>
+  )
+
+  const className = cn(
+    "flex w-full items-center gap-2 rounded-[4px] px-2 py-1 text-sm text-muted-foreground hover:bg-muted hover:text-foreground",
+    isActive && "bg-muted text-foreground"
+  )
+
+  if (!href) {
+    return (
+      <button
+        type="button"
+        disabled
+        className={cn(className, "cursor-default")}
+      >
+        {content}
+      </button>
+    )
+  }
+
   return (
     <Link
       href={href}
       aria-current={isActive ? "page" : undefined}
-      className={cn(
-        "flex w-full items-center gap-2 rounded-[4px] px-2 py-1 text-sm text-muted-foreground hover:bg-muted hover:text-foreground",
-        isActive && "bg-muted text-foreground"
-      )}
+      className={className}
     >
-      <Icon className="size-3.5 shrink-0" aria-hidden="true" />
-      {label}
+      {content}
     </Link>
   )
 }
 
 function SettingsSidebar() {
   const pathname = usePathname()
-  const [backHref] = useState<LinkHref>(getStoredSettingsBackHref)
+  const [backHref] = useState<LinkHref>(getSettingsBackHref)
 
   return (
     <aside className="w-48 shrink-0 border-r border-sidebar-border bg-sidebar p-1 py-1.5">

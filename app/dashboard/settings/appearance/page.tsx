@@ -1,7 +1,20 @@
-export default function GeneralSettingsPage() {
+import { DarkModeToggle } from "@/components/dark-mode-toggle"
+import {
+  SettingsItem,
+  SettingsPage,
+  SettingsSection,
+} from "@/components/settings-page"
+
+export default function AppearanceSettingsPage() {
   return (
-    <div className="grid min-h-svh place-items-center">
-      <h1 className="text-xl font-medium text-muted-foreground/50">General</h1>
-    </div>
+    <SettingsPage title="Appearance">
+      <SettingsSection>
+        <SettingsItem
+          title="Dark Mode"
+          description="Switch between light and dark themes for the interface."
+          control={<DarkModeToggle />}
+        />
+      </SettingsSection>
+    </SettingsPage>
   )
 }

@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e86a37b9-12c2-4ac9-ad8b-b22d53666c04" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/dashboard/dashboard/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/account/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/appearance/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/connection/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/data/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/general/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/dashboard/systems/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/dashboard/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/settings/account/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/settings/account/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/settings/appearance/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/settings/appearance/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/settings/connection/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/settings/connection/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/settings/data/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/settings/data/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/settings/general/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/settings/general/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/settings/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/systems/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/systems/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/settings-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/settings-sidebar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sidebar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/settings-navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/settings-navigation.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,11 +39,13 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
+    "javascript.preferred.runtime.type.id": "node",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
@@ -99,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1780306014441</updated>
       <workItem from="1780306016513" duration="282000" />
-      <workItem from="1780385000301" duration="4965000" />
+      <workItem from="1780385000301" duration="6678000" />
     </task>
     <servers />
   </component>

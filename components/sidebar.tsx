@@ -16,9 +16,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import {
-  SETTINGS_BACK_HREF_STORAGE_KEY,
-  isSafeSettingsBackHref,
+  SETTINGS_DEFAULT_HREF,
   isSettingsRoute,
+  rememberSettingsBackHref as storeSettingsBackHref,
 } from "@/lib/settings-navigation"
 import { cn } from "@/lib/utils"
 
@@ -53,33 +53,13 @@ const primarySidebarItems = [
 
 const secondarySidebarItems = [
   {
-    href: "/dashboard/settings/general",
+    href: SETTINGS_DEFAULT_HREF,
     label: "Settings",
     icon: IconSettings2,
     activeStartsWith: "/dashboard/settings",
     rememberSettingsBackHref: true,
   },
 ] satisfies readonly SidebarItem[]
-
-function getCurrentInternalHref() {
-  const { pathname, search, hash } = window.location
-
-  return `${pathname}${search}${hash}`
-}
-
-function rememberCurrentHrefForSettingsBack() {
-  const href = getCurrentInternalHref()
-
-  if (!isSafeSettingsBackHref(href)) {
-    return
-  }
-
-  try {
-    window.sessionStorage.setItem(SETTINGS_BACK_HREF_STORAGE_KEY, href)
-  } catch {
-    // If storage is unavailable, the settings sidebar falls back to /dashboard.
-  }
-}
 
 function isItemActive(pathname: string, item: SidebarItem) {
   if (item.activeStartsWith && pathname.startsWith(item.activeStartsWith)) {
@@ -105,9 +85,7 @@ function SidebarButton({
           href={href}
           aria-label={label}
           onNavigate={
-            rememberSettingsBackHref
-              ? rememberCurrentHrefForSettingsBack
-              : undefined
+            rememberSettingsBackHref ? () => storeSettingsBackHref() : undefined
           }
           className={cn(
             "inline-flex size-6 shrink-0 items-center justify-center rounded-[4px] text-muted-foreground/70 hover:bg-muted hover:text-foreground",
@@ -134,7 +112,7 @@ function Sidebar() {
       return
     }
 
-    rememberCurrentHrefForSettingsBack()
+    storeSettingsBackHref()
   }, [pathname])
 
   return (
