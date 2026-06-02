@@ -1,62 +1,164 @@
+"use client"
+
+import { useEffect, type ComponentProps } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {
   IconActivity,
-  IconBolt,
-  IconHome,
-  IconLayoutDashboard,
   IconLayoutGrid,
-  IconSettings,
   IconSettings2,
-  IconUser,
+  type TablerIcon,
 } from "@tabler/icons-react"
-import { Button } from "./ui/button"
 
-const sidebarItems = [
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import {
+  SETTINGS_BACK_HREF_STORAGE_KEY,
+  isSafeSettingsBackHref,
+  isSettingsRoute,
+} from "@/lib/settings-navigation"
+import { cn } from "@/lib/utils"
+
+type LinkHref = ComponentProps<typeof Link>["href"]
+
+type SidebarItem = {
+  href: LinkHref
+  label: string
+  icon: TablerIcon
+  activeStartsWith?: string
+  rememberSettingsBackHref?: boolean
+}
+
+type SidebarButtonProps = SidebarItem & {
+  isActive?: boolean
+  className?: string
+}
+
+// Keep sidebar routes as data so adding items does not change rendering logic.
+const primarySidebarItems = [
   {
-    href: "/",
+    href: "/dashboard",
     label: "Dashboard",
     icon: IconLayoutGrid,
   },
   {
-    href: "/",
+    href: "/dashboard/systems",
     label: "Systems",
     icon: IconActivity,
   },
-]
+] satisfies readonly SidebarItem[]
+
+const secondarySidebarItems = [
+  {
+    href: "/dashboard/settings/general",
+    label: "Settings",
+    icon: IconSettings2,
+    activeStartsWith: "/dashboard/settings",
+    rememberSettingsBackHref: true,
+  },
+] satisfies readonly SidebarItem[]
+
+function getCurrentInternalHref() {
+  const { pathname, search, hash } = window.location
+
+  return `${pathname}${search}${hash}`
+}
+
+function rememberCurrentHrefForSettingsBack() {
+  const href = getCurrentInternalHref()
+
+  if (!isSafeSettingsBackHref(href)) {
+    return
+  }
+
+  try {
+    window.sessionStorage.setItem(SETTINGS_BACK_HREF_STORAGE_KEY, href)
+  } catch {
+    // If storage is unavailable, the settings sidebar falls back to /dashboard.
+  }
+}
+
+function isItemActive(pathname: string, item: SidebarItem) {
+  if (item.activeStartsWith && pathname.startsWith(item.activeStartsWith)) {
+    return true
+  }
+
+  return typeof item.href === "string" && pathname === item.href
+}
+
+// One component owns link semantics, icon rendering, and tooltip behavior.
+function SidebarButton({
+  href,
+  label,
+  icon: Icon,
+  isActive,
+  className,
+  rememberSettingsBackHref,
+}: SidebarButtonProps) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Link
+          href={href}
+          aria-label={label}
+          onNavigate={
+            rememberSettingsBackHref
+              ? rememberCurrentHrefForSettingsBack
+              : undefined
+          }
+          className={cn(
+            "inline-flex size-6 shrink-0 items-center justify-center rounded-[4px] text-muted-foreground/70 hover:bg-muted hover:text-foreground",
+            isActive && "bg-muted text-foreground",
+            className
+          )}
+        >
+          <Icon className="size-3.5" aria-hidden="true" />
+          <span className="sr-only">{label}</span>
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent side="right" align="center" sideOffset={6}>
+        {label}
+      </TooltipContent>
+    </Tooltip>
+  )
+}
 
 function Sidebar() {
+  const pathname = usePathname()
+
+  useEffect(() => {
+    if (isSettingsRoute(pathname)) {
+      return
+    }
+
+    rememberCurrentHrefForSettingsBack()
+  }, [pathname])
+
   return (
-    <aside className="flex min-h-svh shrink-0 flex-col border-r border-border justify-between">
-      <nav className="flex flex-1 flex-col p-0.5 gap-0.5 p-1">
-        {sidebarItems.map((item) => {
-          const Icon = item.icon
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center text-muted-foreground/70 p-1 hover:bg-muted rounded-xs"
-            >
-              <Icon data-icon="inline-start" size={18} />
-            </Link>
-          )
-        })}
+    <aside className="flex min-h-svh shrink-0 flex-col justify-between border-r border-sidebar-border bg-sidebar p-1 py-1.5">
+      <nav aria-label="Primary" className="flex flex-1 flex-col gap-1">
+        {primarySidebarItems.map((item) => (
+          <SidebarButton
+            key={item.label}
+            isActive={isItemActive(pathname, item)}
+            {...item}
+          />
+        ))}
       </nav>
-      <nav className="flex flex-col p-0.5 gap-0.5 p-1">
-        <Link
-        href={"/"}
-          className="flex items-center text-muted-foreground/70 p-1 hover:bg-muted rounded-xs"
-        >
-          <IconUser data-icon="inline-start" size={18} />
-        </Link>
-        <Link
-        href={"/"}
-          className="flex items-center text-muted-foreground/70 p-1 hover:bg-muted rounded-xs"
-        >
-          <IconSettings2 data-icon="inline-start" size={18} />
-        </Link>
+      <nav aria-label="Account" className="flex flex-col gap-1">
+        {secondarySidebarItems.map((item) => (
+          <SidebarButton
+            key={item.label}
+            isActive={isItemActive(pathname, item)}
+            {...item}
+          />
+        ))}
       </nav>
     </aside>
   )
 }
 
-export { Sidebar }
+export { Sidebar, SidebarButton }

@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e86a37b9-12c2-4ac9-ad8b-b22d53666c04" name="Changes" comment="" />
+    <list default="true" id="e86a37b9-12c2-4ac9-ad8b-b22d53666c04" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/dashboard/dashboard/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/account/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/appearance/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/connection/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/data/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/general/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/settings/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/dashboard/systems/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/button.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +28,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="3EWtArVPMfkmc3TkFoz0oEcXwrO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,16 +48,27 @@
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Lowgo/Dev/inertia/signal",
+    "last_opened_file_path": "C:/Users/Lowgo/Dev/inertia/signal/app/dashboard/settings",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "npm.Next.js: server-side.executor": "Debug",
+    "npm.Next.js: server-side.executor": "Run",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Lowgo\\Dev\\inertia\\signal\\node_modules\\prettier",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Lowgo\\Dev\\inertia\\signal\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lowgo\Dev\inertia\signal\app\dashboard\settings" />
+      <recent name="C:\Users\Lowgo\Dev\inertia\signal\app\dashboard" />
+      <recent name="C:\Users\Lowgo\Dev\inertia\signal\app\dashboard\systems" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
@@ -70,6 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1780306014441</updated>
       <workItem from="1780306016513" duration="282000" />
+      <workItem from="1780385000301" duration="4965000" />
     </task>
     <servers />
   </component>
